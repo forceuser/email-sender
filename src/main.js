@@ -7,14 +7,20 @@ import {createAppRouter} from "./router";
 // fresh store here.
 import PrimeVue from "primevue/config";
 import {registerComponents} from "#app/vue-common/index.js";
+import pageMeta from "#app/store/page-meta.js";
 
 export function createApp () {
 	const app = createSSRApp(App);
 	const router = createAppRouter();
 	app.use(router);
 	app.use(PrimeVue);
+	app.use(pageMeta);
 
 	registerComponents(app);
+
+	if (typeof window === "object") {
+		window.app = app;
+	}
 
 	return {app, router};
 }

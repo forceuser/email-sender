@@ -17,13 +17,35 @@
 			</Suspense>
 		</router-view>
 	</div>
+	<teleport to="title">
+		{{ $pageMeta.title }}
+	</teleport>
 </template>
+
+
+<script setup>
+import {ref, watchEffect} from "vue";
+import {useRoute, onBeforeRouteUpdate} from "vue-router";
+import pageMeta from "#app/store/page-meta.js";
+
+
+const route = useRoute();
+// onBeforeRouteUpdate(async (to, from) => {
+// 	pageMeta.state.title = to?.meta?.title ?? "";
+// });
+
+// watchEffect(() => {
+// 	pageMeta.state.title = route?.meta?.title ?? "";
+// 	console.log("pageMeta.state.title", pageMeta.state.title);
+// });
+
+// console.log("route", route);
+</script>
 
 <style>
 @import "primevue/resources/primevue.min.css";
 @import "primevue/resources/themes/saga-blue/theme.css";
 @import "primeicons/primeicons.css";
-
 </style>
 
 <style lang="less">

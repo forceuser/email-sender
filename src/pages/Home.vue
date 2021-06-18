@@ -51,12 +51,13 @@
 
 <script setup>
 import foo from "@foo";
-import {reactive, defineAsyncComponent, ref} from "vue";
+import {reactive, defineAsyncComponent, ref, inject} from "vue";
 import FileUpload from "primevue/fileupload";
 import Calendar from "primevue/calendar";
 import Button from "primevue/button";
 import process from "process";
 import {exampleApi} from "#app/api/index.js";
+import pageMeta from "#app/store/page-meta.js";
 
 const ImportType = load("ImportType");
 const Foo = defineAsyncComponent(() =>
@@ -75,8 +76,13 @@ const state = reactive({
 
 const x = ref(await exampleApi(1, 3));
 async function update () {
-	x.value = await exampleApi(state.count);
+	state.count++;
+	console.log("pageMeta", pageMeta);
+	pageMeta.state.title = "HEHE" + state.count;
+	x.value = await exampleApi(state.count, "param2");
 }
+
+
 
 </script>
 

@@ -57,18 +57,19 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 	let vite;
 	let entryServer;
 
+	fastify.register(FastifyStatic, {
+		root: [staticDir, ...(isProd ? [distClientDir] : [])],
+		prefix: "/",
+		dotfiles: "allow",
+		index: false,
+		decorateReply: true, // disable for next regs of FastifyStatic
+		setHeaders (response, path, stat) {
+			// response.setHeader("trace-id", "nosniff");
+			response.setHeader("x-content-type-options", "nosniff");
+		},
+	});
+
 	if (isProd) {
-		fastify.register(FastifyStatic, {
-			root: [staticDir, distClientDir],
-			prefix: "/",
-			dotfiles: "allow",
-			index: false,
-			decorateReply: true, // disable for next regs of FastifyStatic
-			setHeaders (response, path, stat) {
-				// response.setHeader("trace-id", "nosniff");
-				response.setHeader("x-content-type-options", "nosniff");
-			},
-		});
 
 		entryServer = (require(nodePath.join(distServerDir, "entry-server.cjs")));
 	}
@@ -124,13 +125,15 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 				template = await vite.transformIndexHtml(url, templateRaw);
 			}
 
-			const [appHtml, preloadLinks] = await render(url, prod.manifest);
+			const {appHtml, preloadLinks, pageMeta} = await render(url, prod.manifest);
 			// console.log("appHtml", appHtml);
 
 
 			const html = template
 				.replace(`<!--preload-links-->`, preloadLinks)
-				.replace(`<!--app-html-->`, appHtml);
+				.replace(`<!--app-html-->`, appHtml)
+				.replace(`<!--page-title-->`, pageMeta.title)
+				.replace(/<(script|style|link)/gm, `<$1 nonce=${nonce}`);
 
 
 			reply
@@ -146,17 +149,17 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 				.headers(Object.assign({}, {
 					"trace-id": traceId,
 					"content-type": "text/html",
-					// "content-security-policy": [
-					// 	"script-src 'self' https: http: 'unsafe-inline' 'nonce-" + nonce + "' 'strict-dynamic'; ",
-					// 	"worker-src 'self';",
-					// 	"manifest-src 'self' 'nonce-" + nonce + "';",
-					// 	"media-src 'self' 'nonce-" + nonce + "';",
-					// 	"object-src 'none';",
-					// 	"frame-ancestors 'self';",
-					// 	"base-uri 'self' 'nonce-" + nonce + "';",
-					// ].join(""),
-					// "x-frame-options": "SAMEORIGIN",
-					// "x-xss-protection": "1",
+					"content-security-policy": [
+						"script-src 'self' https: http: 'unsafe-inline' 'nonce-" + nonce + "' 'strict-dynamic'; ",
+						"worker-src 'self';",
+						"manifest-src 'self' 'nonce-" + nonce + "';",
+						"media-src 'self' 'nonce-" + nonce + "';",
+						"object-src 'none';",
+						"frame-ancestors 'self';",
+						"base-uri 'self' 'nonce-" + nonce + "';",
+					].join(""),
+					"x-frame-options": "SAMEORIGIN",
+					"x-xss-protection": "1",
 				}))
 				.send(html);
 		}
