@@ -24,7 +24,7 @@ export async function render (url, manifest) {
 	// request.
 	const preloadLinks = renderPreloadLinks(ctx.modules, manifest);
 
-	throw new Error("123");
+	// throw new Error("123");
 	return {
 		appHtml,
 		preloadLinks,

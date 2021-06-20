@@ -1,0 +1,149 @@
+{
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/shared/dist/shared.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/vue/dist/vue.runtime.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/env.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/const.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/api.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/app.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/component.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/context.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/hooks.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/util.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/api/index.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/@vue/devtools-api/lib/esm/index.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/vue-router/dist/vue-router.esm-bundler.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/utils/utils.esm.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/api/api.esm.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/config/config.esm.js": [
+    "/assets/vendor.8999bd4d.js"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/pages/About.vue?vue&type=style&index=0&scoped=true&lang.less": [
+    "/assets/About.95d14b08.js",
+    "/assets/About.532bec02.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/pages/About.vue": [
+    "/assets/About.95d14b08.js",
+    "/assets/About.532bec02.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/assets/logo.png": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "@foo": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/ripple/ripple.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/button/button.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/progressbar/progressbar.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/message/message.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/fileupload/fileupload.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/overlayeventbus/overlayeventbus.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/inputtext/inputtext.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/primevue/calendar/calendar.esm.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/process/browser.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "\u0000/home/forceuser/Projects/email-sender/node_modules/json-stringify-safe/stringify.js?commonjs-module": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/node_modules/json-stringify-safe/stringify.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/api-manager.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/api/index.js": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/pages/Home.vue?vue&type=style&index=0&scoped=true&lang.less": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/pages/Home.vue": [
+    "/assets/Home.ee7d50e9.js",
+    "/assets/Home.cf6ad512.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/components/ImportType.vue?vue&type=script&setup=true&lang.ts": [
+    "/assets/ImportType.12136c35.js"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/components/ImportType.vue": [
+    "/assets/ImportType.12136c35.js"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/components/foo.css": [
+    "/assets/Foo.98fbe89c.js",
+    "/assets/Foo.a8752494.css"
+  ],
+  "/home/forceuser/Projects/email-sender/app/src/components/Foo.jsx": [
+    "/assets/Foo.98fbe89c.js",
+    "/assets/Foo.a8752494.css"
+  ]
+}

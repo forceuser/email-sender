@@ -4,11 +4,8 @@
 	"version": "0.0.0",
 	"type": "module",
 	"imports": {
-		"#api/": {
-			"default": "./src/api/"
-		},
 		"#app/": {
-			"default": "./src/"
+			"default": "./app/src/"
 		},
 		"#server/": {
 			"default": "./server/"
@@ -22,9 +19,9 @@
 		"start": "cross-env NODE_ENV=production node ./server/start.js start",
 		"dev": "nodemon ./server/start.js start",
 		"build": "npm run build:client && npm run build:server",
-		"build:client": "vite build --outDir dist/client --ssrManifest",
-		"build:server": "vite build --outDir dist/server --ssr src/entry-server.js --minify false --base '/' --target modules && mv ./dist/server/entry-server.js ./dist/server/entry-server.cjs",
-		"generate": "vite build --ssrManifest --outDir dist/static && npm run build:server && node prerender",
+		"build:client": "vite build --outDir app/dist/client --ssrManifest",
+		"build:server": "vite build --outDir app/dist/server --ssr app/src/entry-server.js --minify false --base '/' --target modules && mv ./app/dist/server/entry-server.js ./app/dist/server/entry-server.cjs",
+		"generate": "vite build --ssrManifest --outDir app/dist/static && npm run build:server && node prerender",
 		"debug": "node --inspect-brk server",
 		"eslint": "eslint .",
 		"eslint-fix": "eslint --fix .",

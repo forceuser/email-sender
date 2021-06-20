@@ -40,7 +40,7 @@ export default defineConfig({
 	],
 	resolve: {
 		alias: {
-			"#app/": `${nodePath.resolve(packageDir, "src")}/`,
+			"#app/": `${nodePath.resolve(packageDir, "app/src")}/`,
 		},
 	},
 	build: {

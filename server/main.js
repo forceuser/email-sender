@@ -22,8 +22,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = nodePath.dirname(__filename);
 
 const cwd = process.cwd();
-const srcDir = nodePath.join(packageDir, "src");
-const distDir = nodePath.join(packageDir, "dist");
+const srcDir = nodePath.join(packageDir, "app/src");
+const distDir = nodePath.join(packageDir, "app/dist");
 const distClientDir = nodePath.join(distDir, "client");
 const distServerDir = nodePath.join(distDir, "server");
 const staticDir = nodePath.join(packageDir, "static");
