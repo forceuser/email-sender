@@ -4,11 +4,11 @@
 	"version": "0.0.0",
 	"type": "module",
 	"imports": {
-		"#app/": {
-			"default": "./app/src/"
+		"#app/*": {
+			"default": "./app/src/*"
 		},
-		"#server/": {
-			"default": "./server/"
+		"#server/*": {
+			"default": "./server/*"
 		}
 	},
 	"va-release": {
@@ -25,6 +25,7 @@
 		"debug": "node --inspect-brk server",
 		"eslint": "eslint .",
 		"eslint-fix": "eslint --fix .",
+		"fix-esbuild": "node ./node_modules/esbuild/install.js",
 		"cmd-example": "node --eval \"console.log(globalThis)\" --input-type module"
 	},
 	"dependencies": {

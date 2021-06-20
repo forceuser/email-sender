@@ -145,7 +145,7 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 				template = await vite.transformIndexHtml(url, templateRaw);
 			}
 
-			renderResult = await entryServer.render(url, prod.manifest);
+			renderResult = await entryServer.render({route: {path: url}, manifest: prod.manifest});
 			// console.log("appHtml", appHtml);
 		}
 		catch (error) {

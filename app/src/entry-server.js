@@ -8,10 +8,10 @@ export async function getApis () {
 	return apis;
 }
 
-export async function render (url, manifest) {
+export async function render ({route, manifest}) {
 	const {app, router} = createApp();
 	// set the router to the desired URL before rendering
-	router.push(url);
+	router.push(route);
 	await router.isReady();
 	// passing SSR context object which will be available via useSSRContext()
 	// @vitejs/plugin-vue injects code into a component's setup() that registers
