@@ -31,7 +31,7 @@
 	>
 		<div class="p-field p-col-12 p-md-4">
 			<label for="dateformat">DateFormat</label>
-			abc
+			abc1
 			<ClientOnly>
 				<Calendar
 					id="dateformat"
@@ -56,9 +56,10 @@ import FileUpload from "primevue/fileupload";
 import Calendar from "primevue/calendar";
 import Button from "primevue/button";
 import process from "process";
-import {exampleApi} from "#app/api/index.js";
-import pageMeta from "#app/store/page-meta.js";
+import {exampleApi, testApi} from "#app/api/index.js";
+import {usePageMeta} from "#app/store/page-meta.js";
 
+const pageMeta = usePageMeta();
 const ImportType = load("ImportType");
 const Foo = defineAsyncComponent(() =>
 	import("../components/Foo").then(mod => mod.Foo)
@@ -74,12 +75,16 @@ const state = reactive({
 	count: 2,
 });
 
+console.log("SETUP HOME");
+
 const x = ref(await exampleApi(1, 3));
 async function update () {
+
 	state.count++;
 	console.log("pageMeta", pageMeta);
-	pageMeta.state.title = "HEHE" + state.count;
-	x.value = await exampleApi(state.count, "param2");
+	pageMeta.title = "HEHE" + state.count;
+	console.log("exampleApi.handler", exampleApi.handler);
+	x.value = await testApi(state.count, "param2");
 }
 
 

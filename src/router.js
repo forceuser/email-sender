@@ -4,26 +4,35 @@ import {
 	createWebHistory
 } from "vue-router";
 
-import pageMeta from "#app/store/page-meta.js";
+import {usePageMeta} from "#app/store/page-meta.js";
 // Auto generates routes from vue files under ./pages
 // https://vitejs.dev/guide/features.html#glob-import
 const pages = import.meta.glob("./pages/*.vue");
 
 // console.log("pages", pages);
 
-const routes = Object.keys(pages).map((path) => {
-	const name = path.match(/\.\/pages(.*)\.vue$/)[1].toLowerCase();
-	return {
-		path: name === "/home" ? "/" : name,
+// TODO: add nice 404 and 500 error page
+const routes = [
+	{
+		path: "/",
 		meta: {
-			title: `${name} | Vite example`,
+			title: "Home | Vite + Vue 3 SSR",
 		},
-		component: pages[path], // () => import('./pages/*.vue')
-	};
-});
+		component: () => import("#app/pages/Home.vue"),
+	},
+	{
+		path: "/about",
+		meta: {
+			title: "About | Vite + Vue 3 SSR",
+		},
+		component: () => import("#app/pages/About.vue"),
+	},
+];
 
 
-export function createAppRouter () {
+export function createAppRouter (app) {
+	// console.log("app", app);
+
 	const router = createRouter({
 		// use appropriate history implementation for server/client
 		// import.meta.env.SSR is injected by Vite.
@@ -31,8 +40,8 @@ export function createAppRouter () {
 		routes,
 	});
 
-	router.beforeResolve(async to => {
-		pageMeta.state.title = to?.meta?.title ?? "";
+	router.beforeResolve(async (to, from) => {
+		app.config.globalProperties.$pageMeta.title = to?.meta?.title ?? "";
 	});
 
 	return router;

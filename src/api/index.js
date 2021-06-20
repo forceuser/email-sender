@@ -1,9 +1,30 @@
 
-import manager from "#app/api/manager.js";
+import {registerApi} from "#app/api-manager.js";
 
-export const exampleApi = manager.create("example-api", async (...params) => {
-	console.log("exampleApi - params", params);
-	return {
-		data: {example: ":)", params},
-	};
-});
+
+export let exampleApi = registerApi("example-api",
+	import.meta.env.SSR &&
+	(async (...params) => {
+		console.log("exampleApi - params", params);
+		return {
+			data: {example: ":)123468", params},
+		};
+	})
+);
+
+export let testApi = registerApi("test-api",
+	import.meta.env.SSR &&
+	(async (...params) => {
+		console.log("test api - params", params);
+		return {
+			data: {test: "heh1", params},
+		};
+	})
+);
+
+if (import.meta.hot) {
+	import.meta.hot.accept((newModule) => {
+		exampleApi = newModule.exampleApi;
+		testApi = newModule.testApi;
+	});
+}

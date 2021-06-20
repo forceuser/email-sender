@@ -9,7 +9,7 @@ import FastifyStatic from "fastify-static";
 import FastifyCookie from "fastify-cookie";
 import FastifyHttpsRedirect from "fastify-https-redirect";
 import FastifyExpress from "fastify-express";
-import {packageDir, pkg} from "./package.js";
+import {packageDir, pkg} from "#server/package.js";
 
 const require = createRequire(import.meta.url);
 
@@ -32,6 +32,7 @@ const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 async function createServer (root = packageDir, isProd = process.env.NODE_ENV === "production") {
 	const prod = {index: "", manifest: {}};
+	const isDev = !isProd;
 	if (isProd) {
 		prod.index = await readFile(nodePath.join(distClientDir, "index.html"), "utf-8");
 		prod.manifest = JSON.parse(await readFile(nodePath.join(distClientDir, "ssr-manifest.json"), "utf-8"));
@@ -70,10 +71,10 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 	});
 
 	if (isProd) {
-
 		entryServer = (require(nodePath.join(distServerDir, "entry-server.cjs")));
 	}
-	else {
+
+	if (isDev) {
 		vite = await (await import("vite")).default.createServer({
 			root,
 			logLevel: isTest ? "error" : "info",
@@ -90,20 +91,41 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 
 		// use vite's connect instance as middleware
 		fastify.use(vite.middlewares);
-
-		entryServer = (await vite.ssrLoadModule(nodePath.join(srcDir, "entry-server.js")));
 	}
 
-	const {render, registerApis} = entryServer;
+	let entryApis;
+	fastify.route({
+		method: "POST",
+		url: "/api-call/:name",
+		handler: async (request, reply) => {
+			if (isDev) {
+				// console.log("vite.moduleGraph", vite.moduleGraph);
+				// vite.moduleGraph.invalidateAll();
+				entryServer = (await vite.ssrLoadModule(nodePath.join(srcDir, "entry-server.js")));
+				// console.log("dev entry server reload", entryServer);
+			}
 
-	await fastify.register(registerApis, {prefix: "/api/"});
-
+			const api = (await entryServer.getApis()).get(request.params.name);
+			if (api) {
+				reply.send(await api.handler(...(request.body?.params ?? [])));
+			}
+			else {
+				reply.code(404).send({errText: "no such api"});
+			}
+		},
+	});
 
 	fastify.setNotFoundHandler(async (request, reply) => {
+		let ssrError;
+		let renderResult;
+		let template;
 		try {
-			const nonce = crypto.randomBytes(16).toString("base64");
-			const csrfToken = uniq(26);
-			const traceId = uniq(26);
+			if (isDev) {
+				entryServer = (await vite.ssrLoadModule(nodePath.join(srcDir, "entry-server.js"), {
+					isolated: true,
+				}));
+			}
+
 			// const renderedTemplate = Mustache.render(indexTemplate, {
 			// 	nonce,
 			// 	csrfToken,
@@ -112,8 +134,6 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 			// });
 			const url = request.url;
 			// console.log("URL", url);
-
-			let template;
 
 
 			if (isProd) {
@@ -125,14 +145,29 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 				template = await vite.transformIndexHtml(url, templateRaw);
 			}
 
-			const {appHtml, preloadLinks, pageMeta} = await render(url, prod.manifest);
+			renderResult = await entryServer.render(url, prod.manifest);
 			// console.log("appHtml", appHtml);
+		}
+		catch (error) {
+			// If an error is caught, let vite fix the stracktrace so it maps back to
+			// your actual source code.
+			vite.ssrFixStacktrace(error);
+			ssrError = error;
+			console.log("ssrError", ssrError);
+			// logger.log({level: "error", message: error.message});
+		}
 
+		try {
+			const nonce = crypto.randomBytes(16).toString("base64");
+			const csrfToken = uniq(26);
+			const traceId = uniq(26);
 
+			const {appHtml, preloadLinks, pageMeta} = renderResult || {};
 			const html = template
-				.replace(`<!--preload-links-->`, preloadLinks)
-				.replace(`<!--app-html-->`, appHtml)
-				.replace(`<!--page-title-->`, pageMeta.title)
+				.replace(`<!--preload-links-->`, preloadLinks || "")
+				.replace(`<!--app-html-->`, appHtml || "")
+				.replace(`<!--page-title-->`, pageMeta?.title || "")
+				.replace(`<!--ssr-error-->`, ssrError ? `<script type="ssr-error">${ssrError}</script>` : "")
 				.replace(/<(script|style|link)/gm, `<$1 nonce=${nonce}`);
 
 
@@ -164,10 +199,10 @@ async function createServer (root = packageDir, isProd = process.env.NODE_ENV ==
 				.send(html);
 		}
 		catch (error) {
-			console.log("error", error);
-			// logger.log({level: "error", message: error.message});
-			reply.code(500).send();
+			// Show nice 500 error page
+			reply.code(500).send(error.message);
 		}
+
 	});
 
 	return {fastify, vite};

@@ -1,6 +1,12 @@
 import {createApp} from "./main";
 import {renderToString} from "@vue/server-renderer";
-import apiManager from "#app/api/manager.js";
+import {apis} from "#app/api-manager.js";
+
+
+export async function getApis () {
+	await Promise.all(Object.values(import.meta.glob("./api/**/*.js")).map($ => $()));
+	return apis;
+}
 
 export async function render (url, manifest) {
 	const {app, router} = createApp();
@@ -17,11 +23,13 @@ export async function render (url, manifest) {
 	// which we can then use to determine what files need to be preloaded for this
 	// request.
 	const preloadLinks = renderPreloadLinks(ctx.modules, manifest);
-	return {appHtml, preloadLinks, pageMeta: app.config.globalProperties.$pageMeta};
-}
 
-export async function registerApis (fastify, opts) {
-	return apiManager.register(fastify, opts);
+	throw new Error("123");
+	return {
+		appHtml,
+		preloadLinks,
+		pageMeta: app.config.globalProperties.$pageMeta,
+	};
 }
 
 function renderPreloadLinks (modules, manifest) {

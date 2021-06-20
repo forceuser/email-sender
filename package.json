@@ -7,16 +7,20 @@
 		"#api/": {
 			"default": "./src/api/"
 		},
-		"#src/": {
+		"#app/": {
 			"default": "./src/"
+		},
+		"#server/": {
+			"default": "./server/"
 		}
 	},
 	"va-release": {
-		"owner": "forceuser"
+		"owner": "forceuser",
+		"library": "emailSender"
 	},
 	"scripts": {
-		"start": "cross-env NODE_ENV=production node server.js start",
-		"dev": "nodemon index.js start",
+		"start": "cross-env NODE_ENV=production node ./server/start.js start",
+		"dev": "nodemon ./server/start.js start",
 		"build": "npm run build:client && npm run build:server",
 		"build:client": "vite build --outDir dist/client --ssrManifest",
 		"build:server": "vite build --outDir dist/server --ssr src/entry-server.js --minify false --base '/' --target modules && mv ./dist/server/entry-server.js ./dist/server/entry-server.cjs",

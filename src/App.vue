@@ -26,9 +26,10 @@
 <script setup>
 import {ref, watchEffect} from "vue";
 import {useRoute, onBeforeRouteUpdate} from "vue-router";
-import pageMeta from "#app/store/page-meta.js";
+import {usePageMeta} from "#app/store/page-meta.js";
 
 
+const pageMeta = usePageMeta();
 const route = useRoute();
 // onBeforeRouteUpdate(async (to, from) => {
 // 	pageMeta.state.title = to?.meta?.title ?? "";

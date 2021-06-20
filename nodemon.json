@@ -4,5 +4,6 @@
 		".git",
 		"node_modules/**/node_modules"
 	],
-	"ext": "js,mjs,cjs,ts,jsx,json"
+	"watch": ["server/", "package.json"],
+	"ext": "js,mjs,cjs,ts,vue,jsx,json"
 }

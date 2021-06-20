@@ -3,15 +3,14 @@ import process from "process";
 import os from "os";
 import fs from "fs-extra";
 import yargs from "yargs";
-import logger from "./logger.js";
 import winston from "winston";
 import $yaml from "yaml";
-import modifyCase from "./src/utils/modify-case.js";
 import toJson from "json-stringify-safe";
 import "isomorphic-unfetch";
-
-import {packageDir, pkg} from "./package.js";
-import startServer from "./server.js";
+import modifyCase from "#app/utils/modify-case.js";
+import {packageDir, pkg} from "#server/package.js";
+import logger from "#server/logger.js";
+import startServer from "#server/main.js";
 
 const health = {
 	graylogActive: false,

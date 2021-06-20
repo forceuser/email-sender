@@ -5,6 +5,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import nodePath from "path";
 import {fileURLToPath} from "url";
 import findPackageRoot from "find-package-json";
+import process from "process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = nodePath.dirname(__filename);
@@ -29,6 +30,13 @@ export default defineConfig({
 				}
 			},
 		},
+		// {
+		// 	name: "ssr-conditional",
+		// 	transform (code, id) {
+		// 		console.log("id", id);
+		// 		return code;
+		// 	},
+		// },
 	],
 	resolve: {
 		alias: {

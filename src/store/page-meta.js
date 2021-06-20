@@ -1,14 +1,12 @@
-import {reactive, computed, inject, provide, readonly, toRaw} from "vue";
+import {reactive, computed, inject, readonly, toRaw} from "vue";
 // import EventEmitter from "eventemitter2";
 
-const symbol = Symbol();
+const pageMetaKey = Symbol("pageMetaKey");
 
 const createState = () => {
-
 	const $state = reactive({
 		title: "Vue 111",
 	});
-
 
 	const ctrl = {
 		// events,
@@ -26,18 +24,12 @@ const createState = () => {
 
 export default {
 	install (app) {
-		this.state = createState();
-		app.config.globalProperties.$pageMeta = this.state;
+		const state = createState();
+		app.config.globalProperties.$pageMeta = state;
+		app.provide(pageMetaKey, state);
 	},
 };
 
-// export default {
-// 	symbol,
-// 	createState,
-// 	use: () => inject(symbol),
-// 	provide: (app) => {
-// 		const state = createState();
-// 		(app ? app.provide : provide)(symbol, state);
-// 		return state;
-// 	},
-// };
+export function usePageMeta () {
+	return inject(pageMetaKey);
+}
